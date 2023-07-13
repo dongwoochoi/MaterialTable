@@ -3,32 +3,54 @@ import { Table } from '../atom/Table';
 import { MATERIALDUMMY_MAIN, MATERIALDUMMY_SUB } from '../../constants/MaterialDummy';
 import MaterialDropdown from './MaterialDropdown';
 import Label from '../atom/Label';
-import { Dropdown } from '../atom/Dropdown';
+import useMaterialTable from './useMaterialTable';
+import { useEffect } from 'react';
+import useResponsive from '../../useResponsive';
+import BaseType from '../../types';
 
+interface MaterialTableProps extends BaseType{
+    defaultValue : string,
+    makeFormData : any,
+    formData : any,
+    updateFormData : (main: string, sub: string, selected: string) => void;
+}
+export default function MaterialTable( props : MaterialTableProps){
 
-export default function MaterialTable(){
+    const { defaultValue, makeFormData, formData, updateFormData } = {...props}
+    const { isPc } = useResponsive();
+    useEffect(() => {
+        makeFormData(formData)
+        console.log(formData)
+    },[formData])
     return(
         <>
-            <Table.Wrapper>
+            <Table.Wrapper css={wrapper}>
                 <Table.Title>
                     <Label css={titleText}>자재 선택*</Label>
                 </Table.Title>
                 <Label css={describeText}>제작하고자 하는 신발의 자재를 분류별로 빠짐없이 선택해주세요</Label>
-                <Table.TableBody css={tableBody}>
+                <Table.TableBody css={tableBody(isPc)}>
                     {
                         MATERIALDUMMY_MAIN.map(function(mainData){
                             return(
-                                <Table.MainCell css={mainCell}>
-                                    <Label css={labelMainData}>{ mainData.label }</Label>
+                                <Table.MainCell css={mainCell(isPc)}>
+                                    <Label css={labelMainData(isPc)}>{ mainData.label }</Label>
                                     <Table.SubCell>
                                         {
                                             MATERIALDUMMY_SUB.filter(item => item.in === mainData.id).map(function(subData){
                                                 return(
-                                                    <Table.AtomCell css={atomCell}>
-                                                        <Label css={labelSubData}>
+                                                    <Table.AtomCell css={atomCell(isPc)}>
+                                                        <Label css={labelSubData(isPc)}>
                                                             { subData.label }
                                                         </Label>
-                                                        <MaterialDropdown css={materialDropdown} category={subData.category}/>
+                                                        <MaterialDropdown 
+                                                            css={materialDropdown(isPc)} 
+                                                            category={subData.category} 
+                                                            defaultValue={defaultValue} 
+                                                            mainkey={mainData.label} 
+                                                            subkey={subData.label} 
+                                                            updateFormData={updateFormData} 
+                                                            formdata={formData}/>
                                                     </Table.AtomCell>
                                                 );
                                             })
@@ -42,6 +64,9 @@ export default function MaterialTable(){
             </Table.Wrapper>
         </>
     );
+}
+const wrapper = {
+    overflow: "scroll",
 }
 
 const textStyleBold = {
@@ -59,19 +84,19 @@ const describeText = {
     marginBottom : "16px",
 }
 
-const tableBody = {
+const tableBody = (isPc : boolean) => ({
     borderTop : "1px solid black",
     borderLeft : "1px solid #cfcfcf",
     borderRight : "1px solid #cfcfcf",
-    width : "1060px",
+    width : `${isPc ? "1060px" : "560px"}`,
     height : "auto",
-}
+})
 
-const mainCell = {
+const mainCell = (isPc : boolean) => ({
     display : "grid",
-    gridTemplateColumns : "16fr 94fr",
-    borderBottom : "1px solid #cfcfcf"
-}
+    gridTemplateColumns : `${isPc ? "16fr 94fr" : "none"}`,
+    borderBottom : "1px solid #cfcfcf",
+})
 
 const flexCentering = {
     display : "flex",
@@ -79,28 +104,30 @@ const flexCentering = {
     alignItems : "center",
 }
 
-const labelMainData = {
+const labelMainData = (isPc : boolean) => ({
     background : "#f6f6f6",
+    height : `${isPc ? "100%" : "47px"}`,
     ...flexCentering,
     ...textStyleBold,
-}
+})
 
-const labelSubData = {
+const labelSubData = (isPc : boolean) => ({
+    borderRight : `${isPc ? "none" : "1px solid #cfcfcf"}`,
     ...flexCentering,
     ...textStyleBold,
-}
+})
 
-const atomCell = {
+const atomCell = (isPc : boolean) => ({
     borderBottom : "1px solid #cfcfcf",
     display : "grid",
     gridTemplateColumns : "16fr 94fr",
-    paddingTop : "12px",
-    paddingBottom : "12px",
-}
+    paddingTop : `${isPc ? "12px" : "0"}`,
+    paddingBottom : `${isPc ? "12px" : "0"}`,
+})
 
-const materialDropdown = {
+const materialDropdown = (isPc:boolean) => ({
+    margin : `${isPc ? "0" : "6px"}`,
     display : "flex",
     alignItems : "center",
-}
-
+})
 

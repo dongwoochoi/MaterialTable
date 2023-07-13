@@ -56,5 +56,3 @@ export const Table = {
 const defaults = {
 
 }
-
-// MATERIALDUMMY_SUB.filter(item => item.in === mainData.id)

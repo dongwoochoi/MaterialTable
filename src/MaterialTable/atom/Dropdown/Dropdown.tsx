@@ -1,21 +1,26 @@
+
 /** @jsxImportSource @emotion/react */
-import { SetStateAction, useEffect } from "react";
-import BaseType from "../../types";
+import BaseType from "../../../types";
 
 interface SelectProps extends BaseType{
-    handleOpen : React.Dispatch<SetStateAction<boolean>>
-    state : boolean;
+    handleOpen : () => void;
 }
 
 interface ShowConatinerProps extends BaseType{
     state : boolean;
-    handleOpen : React.Dispatch<SetStateAction<boolean>>;
+    handleOpen : () => void;
     ref: React.RefObject<HTMLDivElement>;
+    handleMouse: (event: any) => void;
 }
 
 interface ListProps extends BaseType{
     handleSelect : React.Dispatch<React.SetStateAction<string>>;
     item : string;
+    formdata : any;
+    handleOpen : () => void;
+    mainkey : string;
+    subkey : string;
+    handleupdate : (main: string, sub: string, selected: string) => void
 }
 
 export const Dropdown = {
@@ -27,31 +32,26 @@ export const Dropdown = {
         );
     },
 
-    Selected : ({children, handleOpen, state, ...props } : SelectProps) => {
+    Selected : ({children, handleOpen, ...props } : SelectProps) => {
         return(
-            <div css={selected} {...props} onClick={() => { state ? handleOpen(false) : handleOpen(true) }}>
+            <div onClick={()=>{handleOpen()}} css={selected} {...props} >
                 {children}
             </div>
         );
     },
 
-    ShowContianer : ({children, handleOpen, state , ref,...props} : ShowConatinerProps) => {
+    ShowContianer : ({children, handleOpen, state , ref, handleMouse, ...props} : ShowConatinerProps) => {
         const showRef = ref
-        const handleMouseLeave = (event : any) => {
-            if (state && !showRef?.current?.contains(event.target)) {
-              handleOpen(false);
-            }
-          }
         return(
-            <div ref={showRef} onMouseLeave={handleMouseLeave} css={showContainer(state)} {...props} >
+            <div ref={showRef} onMouseLeave={handleMouse} css={showContainer(state)} {...props} >
                 {children}
             </div>
         );
     },
 
-    List : ({children, handleSelect, item, ...props} : ListProps) => {
+    List : ({children, handleOpen, handleSelect, item, handleupdate, ...props} : ListProps) => {
         return(
-            <div css={list} onClick={() => {handleSelect(item)}} {...props} >
+            <div css={list} onClick={(e : any) => {handleSelect(item); handleOpen(); handleupdate(props.mainkey, props.subkey, item); }} {...props} >
                 {children}
             </div>
         );
