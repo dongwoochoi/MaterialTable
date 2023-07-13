@@ -66,12 +66,13 @@ export default function MaterialTable( props : MaterialTableProps){
     );
 }
 const wrapper = {
-    overflow: "scroll",
+    marginTop : "30px", 
+    marginBottom : "30px"
 }
 
 const textStyleBold = {
     fontWeight : "bold",
-    fontSize : "16px",
+    fontSize : "14px",
 }
 
 const titleText = {
@@ -114,13 +115,14 @@ const labelMainData = (isPc : boolean) => ({
 const labelSubData = (isPc : boolean) => ({
     borderRight : `${isPc ? "none" : "1px solid #cfcfcf"}`,
     ...flexCentering,
-    ...textStyleBold,
+    fontWeight : `${isPc ? "bold" : "none"}`,
+    fontSize : "14px",
 })
 
 const atomCell = (isPc : boolean) => ({
     borderBottom : "1px solid #cfcfcf",
     display : "grid",
-    gridTemplateColumns : "16fr 94fr",
+    gridTemplateColumns : `${isPc ? "16fr 94fr" : "3fr 8.3fr"}`,
     paddingTop : `${isPc ? "12px" : "0"}`,
     paddingBottom : `${isPc ? "12px" : "0"}`,
 })

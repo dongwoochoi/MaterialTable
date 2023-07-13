@@ -49,4 +49,5 @@ export default function MaterialDropdown({...props}:MaterialDropdownProps){
 
 const selectColor = (selectedCategory : string) => ({
     color : `${selectedCategory === "자재선택" ? "#cfcfcf" : "black"}`,
+    fontSize : "14px"
 })

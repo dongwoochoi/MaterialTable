@@ -5,7 +5,7 @@ import BaseType from "../../types"
 export const Table = {
     Wrapper : ({ children, ...props }: BaseType) => {
         return(
-            <div css={defaults}>
+            <div css={defaults} {...props}>
                 { children }
             </div>
         );
