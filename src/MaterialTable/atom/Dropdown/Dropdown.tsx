@@ -1,6 +1,7 @@
-
 /** @jsxImportSource @emotion/react */
 import BaseType from "../../../types";
+import React, { useContext,useEffect,useState } from "react";
+import { MaterialTableContext } from "../../context";
 
 interface SelectProps extends BaseType{
     handleOpen : () => void;
@@ -16,11 +17,9 @@ interface ShowConatinerProps extends BaseType{
 interface ListProps extends BaseType{
     handleSelect : React.Dispatch<React.SetStateAction<string>>;
     item : string;
-    formdata : any;
     handleOpen : () => void;
     mainkey : string;
     subkey : string;
-    handleupdate : (main: string, sub: string, selected: string) => void
 }
 
 export const Dropdown = {
@@ -34,32 +33,37 @@ export const Dropdown = {
 
     Selected : ({children, handleOpen, ...props } : SelectProps) => {
         return(
-            <div onClick={()=>{handleOpen()}} css={selected} {...props} >
+            <div onClick={()=>{handleOpen()}} css={Selected} {...props} >
                 {children}
             </div>
         );
     },
 
     ShowContianer : ({children, handleOpen, state , ref, handleMouse, ...props} : ShowConatinerProps) => {
-        const showRef = ref
         return(
-            <div ref={showRef} onMouseLeave={handleMouse} css={showContainer(state)} {...props} >
+            <div ref={ref} onMouseLeave={handleMouse} css={showContainer(state)} {...props} >
                 {children}
             </div>
         );
     },
 
-    List : ({children, handleOpen, handleSelect, item, handleupdate, ...props} : ListProps) => {
+    List : ({children, handleOpen, handleSelect, item, mainkey, subkey, ...props} : ListProps) => {
+        const { state, dispatch } = useContext(MaterialTableContext);
+
         return(
-            <div css={list} onClick={(e : any) => {handleSelect(item); handleOpen(); handleupdate(props.mainkey, props.subkey, item); }} {...props} >
+            <div css={list} onClick={(e : any) => { 
+                    handleSelect(item); 
+                    dispatch({
+                        type : "update",
+                        updateState : [mainkey, subkey, item]
+                    })
+                    
+                    handleOpen(); 
+                 }} {...props} >
                 {children}
             </div>
         );
     },
-}
-
-const defaults = {
-
 }
 
 const Wrapper = {
@@ -68,7 +72,7 @@ const Wrapper = {
     position : "relative" as const,
 }
 
-const selected = {
+const Selected = {
     display : "flex",
     alignItems : "center",
     border : "1px solid black",

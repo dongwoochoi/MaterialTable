@@ -1,27 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import { Table } from '../atom/Table';
 import { MATERIALDUMMY_MAIN, MATERIALDUMMY_SUB } from '../../constants/MaterialDummy';
-import MaterialDropdown from './MaterialDropdown';
+import MaterialDropdown from '../molecures/MaterialDropdown';
 import Label from '../atom/Label';
-import useMaterialTable from './useMaterialTable';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import useResponsive from '../../useResponsive';
-import BaseType from '../../types';
+import { MaterialTableContext } from '../context';
+import { selected } from '../store';
+import useMaterialTable from './useMaterialTable';
 
-interface MaterialTableProps extends BaseType{
-    defaultValue : string,
-    makeFormData : any,
-    formData : any,
-    updateFormData : (main: string, sub: string, selected: string) => void;
-}
-export default function MaterialTable( props : MaterialTableProps){
 
-    const { defaultValue, makeFormData, formData, updateFormData } = {...props}
+
+export default function MaterialTable(){
+
+    const { defaultValue } = useMaterialTable()
     const { isPc } = useResponsive();
+    const { state, dispatch } = useContext(MaterialTableContext);
     useEffect(() => {
-        makeFormData(formData)
-        console.log(formData)
-    },[formData])
+        dispatch({
+            type : "reset",
+            updateState : selected
+        })
+    }, [])
+   
     return(
         <>
             <Table.Wrapper css={wrapper}>
@@ -49,8 +50,7 @@ export default function MaterialTable( props : MaterialTableProps){
                                                             defaultValue={defaultValue} 
                                                             mainkey={mainData.label} 
                                                             subkey={subData.label} 
-                                                            updateFormData={updateFormData} 
-                                                            formdata={formData}/>
+                                                            />
                                                     </Table.AtomCell>
                                                 );
                                             })
