@@ -6,8 +6,7 @@ export default function useDropdown(showRef : any, defaultValue : string){
     const handleMouseLeaveShow = (event : MouseEvent) => {
         if (isOpen && !showRef?.current?.contains(event.target)) {
             set_isOpen(false);
-        }
-    
+        }   
     }
 
     const handleOpen = () => {

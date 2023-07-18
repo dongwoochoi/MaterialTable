@@ -9,8 +9,6 @@ import { MaterialTableContext } from '../context';
 import { selected } from '../store';
 import useMaterialTable from './useMaterialTable';
 
-
-
 export default function MaterialTable(){
 
     const { defaultValue } = useMaterialTable()

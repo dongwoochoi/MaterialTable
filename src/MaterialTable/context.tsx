@@ -1,6 +1,5 @@
 import React, { useEffect, createContext, useReducer } from "react";
 import { selected } from "./store";
-import { ContextType } from "../types";
 import BaseType from "../types";
 import reducer from "./actions";
 

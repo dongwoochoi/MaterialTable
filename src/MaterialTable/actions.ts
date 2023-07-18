@@ -1,10 +1,3 @@
-interface Action{
-    type : string,
-    main? : string,
-    sub? : string,
-    selectedItem? : string,
-}
-
 export default function reducer(prevState: any, action: any){
     const { type, updateState } = action;
     switch(type){

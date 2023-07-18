@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode } from "react";
 import BaseType from "../../types"
 
 export const Table = {
@@ -35,7 +34,7 @@ export const Table = {
         );
     },
 
-    SubCell : ({ children, ...props }: BaseType) => {
+    SubCell : ({ children }: BaseType) => {
         return(
             <div css={defaults}>
                 { children }

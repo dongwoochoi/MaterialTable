@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import BaseType from "../../../types";
-import React, { useContext,useEffect,useState } from "react";
+import React, { useContext } from "react";
 import { MaterialTableContext } from "../../context";
 
 interface SelectProps extends BaseType{
