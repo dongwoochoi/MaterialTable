@@ -11,7 +11,7 @@ import useMaterialTable from './useMaterialTable';
 
 export default function MaterialTable(){
 
-    const { defaultValue } = useMaterialTable()
+    const { defaultValue } = useMaterialTable();
     const { isPc } = useResponsive();
     const { dispatch } = useContext(MaterialTableContext);
     useEffect(() => {

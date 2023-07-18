@@ -10,20 +10,20 @@ export default interface BaseType extends AllHTMLAttributes<HTMLElement>{
 
 export interface ContextType{
     selected : {
-        [key : string] : {
-            [key : string] : string,
-            [key : string] : string,
-            [key : string] : string,
+        "갑피" : {
+            "외피" : string,
+            "내피" : string,
+            "로고방식" : string,
         },
     
-        [key : string] : {
-            [key : string] : string,
-            [key : string] : string,
-            [key : string] : string,
+        "인솔" : {
+            "소재" : string,
+            "원단" : string,
+            "로고방식" : string,
         },
     
-        [key : string] : {
-            [key : string] : string,
+        "아웃솔" : {
+            "형태" : string,
         }
     }; 
 

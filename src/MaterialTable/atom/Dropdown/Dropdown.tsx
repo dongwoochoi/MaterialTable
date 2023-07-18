@@ -35,6 +35,7 @@ export const Dropdown = {
         return(
             <div onClick={()=>{handleOpen()}} css={Selected} {...props} >
                 {children}
+                <img css={icon} src="다운로드.png"></img>
             </div>
         );
     },
@@ -80,7 +81,6 @@ const Selected = {
     height : "40px",
     paddingLeft : "16px",
     paddingRight : "16px",
-
 }
 
 const showContainer = (isOpen : boolean) => ({
@@ -103,4 +103,10 @@ const list = {
     "&:hover": {
         background : "#f6f6f6",
     },
+}
+
+const icon = {
+    position : "absolute" as const, 
+    width : "24px",
+    right : "1%"
 }

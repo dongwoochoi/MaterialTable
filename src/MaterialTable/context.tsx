@@ -2,6 +2,7 @@ import React, { useEffect, createContext, useReducer } from "react";
 import { selected } from "./store";
 import BaseType from "../types";
 import reducer from "./actions";
+import { ContextType } from "../types";
 
 export const MaterialTableContext = createContext<any>({   
     ...selected,
