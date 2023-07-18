@@ -3,7 +3,7 @@ import { useState } from "react"
 export default function useDropdown(showRef : any, defaultValue : string){
     const [selectedCategory, set_selectedCategory] = useState(defaultValue);
     const [isOpen, set_isOpen] = useState(false);
-    const handleMouseLeaveShow = (event : any) => {
+    const handleMouseLeaveShow = (event : MouseEvent) => {
         if (isOpen && !showRef?.current?.contains(event.target)) {
             set_isOpen(false);
         }

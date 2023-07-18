@@ -9,7 +9,6 @@ interface SelectProps extends BaseType{
 
 interface ShowConatinerProps extends BaseType{
     state : boolean;
-    handleOpen : () => void;
     ref: React.RefObject<HTMLDivElement>;
     handleMouse: (event: any) => void;
 }
@@ -23,6 +22,7 @@ interface ListProps extends BaseType{
 }
 
 export const Dropdown = {
+    
     Wrapper : ({children, ...props} : BaseType) => {
         return(
             <div css={Wrapper} {...props}>
@@ -39,7 +39,7 @@ export const Dropdown = {
         );
     },
 
-    ShowContianer : ({children, handleOpen, state , ref, handleMouse, ...props} : ShowConatinerProps) => {
+    ShowContianer : ({children, state , ref, handleMouse, ...props} : ShowConatinerProps) => {
         return(
             <div ref={ref} onMouseLeave={handleMouse} css={showContainer(state)} {...props} >
                 {children}

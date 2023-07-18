@@ -22,12 +22,12 @@ export default function MaterialDropdown({...props}:MaterialDropdownProps){
     } = useDropdown(showRef, props.defaultValue)
   
     return(
-        <div {...props}>
+        <div {...props}> 
             <Dropdown.Wrapper>
                 <Dropdown.Selected handleOpen={handleOpen}>
                     <Label css={selectColor(selectedCategory)}>{ selectedCategory }</Label>
                 </Dropdown.Selected>
-                <Dropdown.ShowContianer state={isOpen} handleMouse={handleMouseLeaveShow} ref={showRef} handleOpen={handleOpen}>
+                <Dropdown.ShowContianer state={isOpen} handleMouse={handleMouseLeaveShow} ref={showRef}>
                     { 
                         list.map(function(category){
                             return(
