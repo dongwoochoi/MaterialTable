@@ -39,16 +39,16 @@ export const Dropdown = {
         );
     },
 
-    ShowContianer : ({children, state , ref, handleMouse, ...props} : ShowConatinerProps) => {
+    ShowContianer : ({children, state , handleMouse, ...props} : ShowConatinerProps) => {
         return(
-            <div ref={ref} onMouseLeave={handleMouse} css={showContainer(state)} {...props} >
+            <div onMouseLeave={handleMouse} css={showContainer(state)} {...props} >
                 {children}
             </div>
         );
     },
 
     List : ({children, handleOpen, handleSelect, item, mainkey, subkey, ...props} : ListProps) => {
-        const { state, dispatch } = useContext(MaterialTableContext);
+        const { dispatch } = useContext(MaterialTableContext);
 
         return(
             <div css={list} onClick={(e : any) => { 
@@ -67,7 +67,7 @@ export const Dropdown = {
 }
 
 const Wrapper = {
-    width : "98%",
+    width : "100%",
     textAlign : "center" as const,
     position : "relative" as const,
 }
@@ -79,7 +79,8 @@ const Selected = {
     borderRadius : "5px",
     height : "40px",
     paddingLeft : "16px",
-    paddingRight : "16px"
+    paddingRight : "16px",
+
 }
 
 const showContainer = (isOpen : boolean) => ({

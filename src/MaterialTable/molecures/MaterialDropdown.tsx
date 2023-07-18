@@ -10,28 +10,28 @@ interface MaterialDropdownProps extends BaseType{
     mainkey : string;
     subkey : string;
 }
-export default function MaterialDropdown({...props}:MaterialDropdownProps){
+export default function MaterialDropdown({ category, defaultValue, mainkey, subkey, ...props}:MaterialDropdownProps){
     const showRef = useRef(null);
-    const list = props.category;
+    const list = category;
     const {
         selectedCategory,
         set_selectedCategory,
         isOpen,
         handleMouseLeaveShow,
         handleOpen,
-    } = useDropdown(showRef, props.defaultValue)
+    } = useDropdown(showRef, defaultValue)
   
     return(
-        <div {...props}> 
+        <div {...props}>
             <Dropdown.Wrapper>
                 <Dropdown.Selected handleOpen={handleOpen}>
                     <Label css={selectColor(selectedCategory)}>{ selectedCategory }</Label>
                 </Dropdown.Selected>
                 <Dropdown.ShowContianer state={isOpen} handleMouse={handleMouseLeaveShow} ref={showRef}>
                     { 
-                        list.map(function(category){
+                        list.map(function(category, i){
                             return(
-                                <Dropdown.List mainkey={props.mainkey} subkey={props.subkey} item={category} handleSelect={set_selectedCategory} handleOpen={handleOpen}>
+                                <Dropdown.List key={i} mainkey={mainkey} subkey={subkey} item={category} handleSelect={set_selectedCategory} handleOpen={handleOpen}>
                                     { category }
                                 </Dropdown.List>
                             );

@@ -13,7 +13,7 @@ export default function MaterialTable(){
 
     const { defaultValue } = useMaterialTable()
     const { isPc } = useResponsive();
-    const { state, dispatch } = useContext(MaterialTableContext);
+    const { dispatch } = useContext(MaterialTableContext);
     useEffect(() => {
         dispatch({
             type : "reset",
@@ -30,15 +30,15 @@ export default function MaterialTable(){
                 <Label css={describeText}>제작하고자 하는 신발의 자재를 분류별로 빠짐없이 선택해주세요</Label>
                 <Table.TableBody css={tableBody(isPc)}>
                     {
-                        MATERIALDUMMY_MAIN.map(function(mainData){
+                        MATERIALDUMMY_MAIN.map(function(mainData, i){
                             return(
-                                <Table.MainCell css={mainCell(isPc)}>
+                                <Table.MainCell css={mainCell(isPc)} key={i}>
                                     <Label css={labelMainData(isPc)}>{ mainData.label }</Label>
                                     <Table.SubCell>
                                         {
-                                            MATERIALDUMMY_SUB.filter(item => item.in === mainData.id).map(function(subData){
+                                            MATERIALDUMMY_SUB.filter(item => item.in === mainData.id).map(function(subData, i){
                                                 return(
-                                                    <Table.AtomCell css={atomCell(isPc)}>
+                                                    <Table.AtomCell css={atomCell(isPc)} key={i}>
                                                         <Label css={labelSubData(isPc)}>
                                                             { subData.label }
                                                         </Label>
@@ -123,11 +123,12 @@ const atomCell = (isPc : boolean) => ({
     gridTemplateColumns : `${isPc ? "16fr 94fr" : "3fr 8.3fr"}`,
     paddingTop : `${isPc ? "12px" : "0"}`,
     paddingBottom : `${isPc ? "12px" : "0"}`,
+    justifyContent : "center",
 })
 
 const materialDropdown = (isPc:boolean) => ({
     margin : `${isPc ? "0" : "6px"}`,
+    marginRight : `${isPc ? "12px" : "6px"}`,
     display : "flex",
-    alignItems : "center",
 })
 
